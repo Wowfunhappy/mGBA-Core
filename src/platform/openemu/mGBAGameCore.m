@@ -175,19 +175,9 @@ static struct mLogger logger = { .log = _log };
     return OEIntSizeMake(width, height);
 }
 
-- (const void *)getVideoBufferWithHint:(void *)hint
+- (const void *)videoBuffer
 {
-	OEIntSize bufferSize = [self bufferSize];
-
-	if (!hint)
-	{
-		hint = outputBuffer;
-	}
-
-	outputBuffer = hint;
-	core->setVideoBuffer(core, hint, bufferSize.width);
-
-	return hint;
+	return outputBuffer;
 }
 
 - (GLenum)pixelFormat
@@ -198,6 +188,11 @@ static struct mLogger logger = { .log = _log };
 - (GLenum)pixelType
 {
     return GL_UNSIGNED_INT_8_8_8_8_REV;
+}
+
+- (GLenum)internalPixelFormat
+{
+    return GL_RGB8;
 }
 
 - (NSTimeInterval)frameInterval
